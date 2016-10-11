@@ -10,6 +10,8 @@
   "author": "lesh <lesh@sysphere.org> (http://lesh.sysphere.org)",
   "license": "ISC",
   "dependencies": {
-    "bluebird": "^3.4.6"
+    "bluebird": "^3.4.6",
+    "lweb3": "git://github.com/leshy/lweb3.git",
+    "leshdash": "git://github.com/leshy/leshdash.git"
   }
 }
