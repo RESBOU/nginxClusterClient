@@ -18,7 +18,7 @@ export ClusterClient = tcpClient.extend4000 do
     .timeout 3000
     .then ~>
       @trigger 'register'
-      resolve()
+      resolve data
       
     .catch reject
 

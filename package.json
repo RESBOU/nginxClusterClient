@@ -1,5 +1,5 @@
 {
-  "name": "nginxClusterClient",
+  "name": "nginxLoadBalancerClient",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
