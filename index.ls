@@ -6,7 +6,7 @@ require! {
   events: { EventEmitter }
 }
 
-export ClusterClient = tcpClient.extend4000 do
+export LoadBalancerClient = tcpClient.extend4000 do
   initialize: ->
     @addProtocol new lweb.protocols.query.client!
     @addProtocol new lweb.protocols.query.server!
@@ -22,12 +22,12 @@ export ClusterClient = tcpClient.extend4000 do
       
     .catch reject
 
-export class ClusterClientReconnect
+export class LoadBalancerClientReconnect
   (opts) -> @ <<< opts
 
   register: (data={}) ->
     if @client? then @client.end()
-    @client = new ClusterClient @{ host, port }
+    @client = new LoadBalancerClient @{ host, port }
     @client.once 'end', ~> setTimeout (~> @register data), 1000
     @client.register data
 
@@ -40,7 +40,7 @@ if require.main is module
     port: 3000
     
   console.log  'registering...', settings
-  node = new ClusterClientReconnect settings.server
+  node = new LoadBalancerClient settings.server
       
   node.register (name: "#{ os.hostname() }-#{ process.pid }") <<< settings{ port, ip }
   .then -> console.log "registered :)", it
