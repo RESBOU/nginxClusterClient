@@ -36,7 +36,6 @@ if require.main is module
     server: 
       host: 'localhost'
       port: 2010
-    ip: '10.77.0.2'
     port: 3000
     
   console.log  'registering...', settings
