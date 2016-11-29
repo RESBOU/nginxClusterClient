@@ -3,6 +3,7 @@ require! {
   bluebird: p
   lweb3: lweb
   'lweb3/transports/client/tcp': { tcpClient }
+  leshdash: { head }
   events: { EventEmitter }
 }
 
@@ -17,7 +18,8 @@ export LoadBalancerClient = tcpClient.extend4000 do
     .then ~> @pquery add: data
     .timeout 3000
     .then ~>
-      @trigger 'register'
+      data = head it
+      @trigger 'register', data
       resolve data
       
     .catch reject
@@ -41,6 +43,6 @@ if require.main is module
   console.log  'registering...', settings
   node = new LoadBalancerClient settings.server
       
-  node.register (name: "#{ os.hostname() }-#{ process.pid }") <<< settings{ port, ip }
+  node.register (name: "#{ os.hostname() }-#{ process.pid }") <<< settings{ port }
   .then -> console.log "registered :)", it
   .catch -> console.log 'init failed!', it
